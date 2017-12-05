@@ -27,7 +27,11 @@ class JobActor extends Actor{
   def receive: Receive = {
     case AddJob(job) =>
       val buffer = jobs.getOrElseUpdate(job.startTime,{
-        context.system.scheduler.scheduleOnce((job.startTime - new Date().getTime) milliseconds,self,DoJob(job.startTime))(context.system.dispatcher)
+        context.system.scheduler.scheduleOnce(
+          (job.startTime - new Date().getTime) milliseconds
+          ,self
+          ,DoJob(job.startTime)
+        )(context.system.dispatcher)
         ArrayBuffer[Job]()
       })
       buffer += job

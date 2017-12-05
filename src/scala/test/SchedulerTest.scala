@@ -16,6 +16,9 @@ class SchedulerTest     {
 
   @Test
   def test1(){
+    /**
+      * Тест что все задачи выполняются
+      */
     var counter = 0
     def job = new Job {
       def execute() = {
@@ -30,6 +33,9 @@ class SchedulerTest     {
   }
   @Test(expected = classOf[ExpiredJobException])
   def test2(){
+    /**
+      * Тест на не корретное время старта задачи
+      */
     def job = new Job {
       def execute() = {}
       val startTime = new Date().getTime() -1000
@@ -38,6 +44,9 @@ class SchedulerTest     {
   }
   @Test
   def test3(){
+    /**
+      * Тест на последовательность выполения задач
+      */
     val date = new Date().getTime()
     var result = ""
     def job1 = new Job {
